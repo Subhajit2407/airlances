@@ -83,6 +83,23 @@
   .card-gradient-orange {
     @apply bg-gradient-to-r from-orange-400 to-orange-600 text-white;
   }
+  
+  /* New utilities for colorful elements */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-purple {
+    @apply bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent;
+  }
+  
+  .bg-gradient-soft {
+    @apply bg-gradient-to-r from-blue-50 to-purple-50;
+  }
+  
+  .bg-gradient-vibrant {
+    @apply bg-gradient-to-r from-blue-500 to-purple-500;
+  }
 }
 
 /* Animations delay classes */
@@ -100,4 +117,30 @@
 }
 .delay-500 {
   animation-delay: 0.5s;
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-accent/20;
+}
+
+/* Card color variations for property listings */
+.card-blue {
+  @apply border-l-4 border-blue-400;
+}
+
+.card-purple {
+  @apply border-l-4 border-purple-400;
+}
+
+.card-teal {
+  @apply border-l-4 border-teal-400;
+}
+
+.card-orange {
+  @apply border-l-4 border-orange-400;
 }

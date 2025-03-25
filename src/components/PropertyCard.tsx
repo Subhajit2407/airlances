@@ -3,6 +3,7 @@ import React from 'react';
 import { Star, Heart } from 'lucide-react';
 import { Property } from '@/lib/data';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 interface PropertyCardProps {
   property: Property;
@@ -14,9 +15,11 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
   const animationDelay = `delay-${(index % 5) * 100}`;
 
   return (
-    <div 
+    <Link 
+      to={`/property/${property.id}`}
       className={cn(
-        "group rounded-xl overflow-hidden transition-all hover:shadow-md animate-fade-up",
+        "group rounded-xl overflow-hidden transition-all hover:shadow-md animate-fade-up block",
+        "transform hover:-translate-y-1 transition-all duration-300",
         animationDelay,
         className
       )}
@@ -31,13 +34,19 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
         />
         
         {/* Favorite Button */}
-        <button className="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-all focus-ring">
-          <Heart className="w-4 h-4 text-gray-700" />
+        <button 
+          className="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-all focus-ring z-10"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent navigation when clicking the heart
+            console.log('Added to favorites:', property.title);
+          }}
+        >
+          <Heart className="w-4 h-4 text-gray-700 hover:text-accent hover:fill-accent" />
         </button>
         
         {/* New Tag */}
         {property.isNew && (
-          <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/80 backdrop-blur-sm text-xs font-medium">
+          <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-accent text-white text-xs font-medium">
             New
           </div>
         )}
@@ -46,7 +55,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
       {/* Content */}
       <div className="pt-4 space-y-1">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-base text-primary truncate">{property.title}</h3>
+          <h3 className="font-medium text-base text-primary truncate group-hover:text-accent transition-colors">{property.title}</h3>
           <div className="flex items-center">
             <Star className="w-4 h-4 text-accent fill-accent mr-1" />
             <span className="text-sm font-medium">{property.rating}</span>
@@ -66,7 +75,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
