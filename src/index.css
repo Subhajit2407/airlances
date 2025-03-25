@@ -23,7 +23,8 @@
     --muted: 210 20% 96%;
     --muted-foreground: 220 10% 48%;
 
-    --accent: 220 80% 60%;
+    /* Changed accent to a vibrant blue */
+    --accent: 200 80% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -31,7 +32,7 @@
 
     --border: 220 14% 92%;
     --input: 220 14% 92%;
-    --ring: 220 80% 60%;
+    --ring: 200 80% 55%;
 
     --radius: 0.8rem;
   }
@@ -64,6 +65,23 @@
   
   .transition-all-200 {
     @apply transition-all duration-200 ease-in-out;
+  }
+
+  /* New colorful card styles */
+  .card-gradient-blue {
+    @apply bg-gradient-to-r from-blue-400 to-blue-600 text-white;
+  }
+  
+  .card-gradient-teal {
+    @apply bg-gradient-to-r from-teal-400 to-teal-600 text-white;
+  }
+  
+  .card-gradient-purple {
+    @apply bg-gradient-to-r from-purple-400 to-purple-600 text-white;
+  }
+  
+  .card-gradient-orange {
+    @apply bg-gradient-to-r from-orange-400 to-orange-600 text-white;
   }
 }
 

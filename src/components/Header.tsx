@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Search, User, Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -29,20 +30,21 @@ const Header = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
-          <a 
-            href="/" 
+          <Link 
+            to="/" 
             className="font-semibold text-xl text-primary transition-all duration-200 hover:opacity-80"
           >
             <span className="text-accent">air</span>place
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <a href="/" className="text-sm font-medium hover:text-accent transition-all duration-200">Home</a>
-          <a href="#" className="text-sm font-medium hover:text-accent transition-all duration-200">Places</a>
-          <a href="#" className="text-sm font-medium hover:text-accent transition-all duration-200">Experiences</a>
-          <a href="#" className="text-sm font-medium hover:text-accent transition-all duration-200">About</a>
+          <Link to="/" className="text-sm font-medium hover:text-accent transition-all duration-200">Home</Link>
+          <Link to="/places" className="text-sm font-medium hover:text-accent transition-all duration-200">Places</Link>
+          <Link to="/experiences" className="text-sm font-medium hover:text-accent transition-all duration-200">Experiences</Link>
+          <Link to="/about" className="text-sm font-medium hover:text-accent transition-all duration-200">About</Link>
+          <Link to="/contact" className="text-sm font-medium hover:text-accent transition-all duration-200">Contact</Link>
         </nav>
 
         {/* Right Actions */}
@@ -69,10 +71,11 @@ const Header = () => {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 animate-fade-in">
           <div className="py-4 px-6 space-y-3">
-            <a href="/" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Home</a>
-            <a href="#" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Places</a>
-            <a href="#" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Experiences</a>
-            <a href="#" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">About</a>
+            <Link to="/" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Home</Link>
+            <Link to="/places" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Places</Link>
+            <Link to="/experiences" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Experiences</Link>
+            <Link to="/about" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">About</Link>
+            <Link to="/contact" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Contact</Link>
           </div>
         </div>
       )}
