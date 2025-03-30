@@ -34,7 +34,7 @@ const Header = () => {
             to="/" 
             className="font-playfair font-bold text-xl text-primary transition-all duration-200 hover:opacity-80"
           >
-            <span className="text-accent">Amazing</span>Places
+            <span className="text-accent">Amazing</span>
           </Link>
         </div>
 

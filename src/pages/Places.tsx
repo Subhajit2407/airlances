@@ -8,16 +8,25 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Check, Search, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import DestinationSuggestions from '@/components/DestinationSuggestions';
+import { useLocation } from 'react-router-dom';
 
 const Places = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryParam = queryParams.get('category');
+
   const [searchTerm, setSearchTerm] = useState('');
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [filtersVisible, setFiltersVisible] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<string[]>(
+    categoryParam ? [categoryParam] : []
+  );
 
   const filterOptions = [
     "Beachfront", "Mountain view", "Pool", "Hot tub", "Pet friendly", 
-    "Wifi", "Kitchen", "Free parking", "Air conditioning", "Washer & dryer"
+    "Wifi", "Kitchen", "Free parking", "Air conditioning", "Washer & dryer",
+    "hills", "backwaters", "beaches", "wildlife", "heritage", "tropical", "tea", "camping"
   ];
 
   const toggleFilter = (filter: string) => {
@@ -41,11 +50,11 @@ const Places = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-grow">
+      <main className="flex-grow pt-16">
         {/* Search Section */}
         <section className="relative py-12 px-6 bg-gradient-to-r from-blue-50 to-indigo-50">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-semibold mb-6 animate-fade-up">Find Your Perfect Place</h1>
+            <h1 className="text-3xl md:text-4xl font-playfair font-semibold mb-6 animate-fade-up">Find Your Perfect Place</h1>
             
             <div className="flex flex-col md:flex-row gap-4 mb-6 animate-fade-up delay-100">
               <div className="relative flex-grow">
@@ -113,6 +122,9 @@ const Places = () => {
             )}
           </div>
         </section>
+
+        {/* Destination Suggestions */}
+        <DestinationSuggestions />
         
         {/* Properties Grid */}
         <section className="max-w-7xl mx-auto px-6 py-12">
