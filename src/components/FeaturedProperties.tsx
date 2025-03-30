@@ -29,8 +29,8 @@ const FeaturedProperties = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-medium bg-gradient-to-r from-orange-500 to-rose-500 bg-clip-text text-transparent animate-fade-up">Northeast India's Finest Stays</h2>
-            <p className="text-muted-foreground mt-1 animate-fade-up delay-100">Handpicked accommodations that showcase the region's beauty</p>
+            <h2 className="text-2xl font-playfair font-medium bg-gradient-to-r from-orange-500 to-rose-500 bg-clip-text text-transparent animate-fade-up">India's Magnificent Stays</h2>
+            <p className="font-poppins text-muted-foreground mt-1 animate-fade-up delay-100">Handpicked accommodations that showcase the country's rich diversity</p>
           </div>
           
           <div className="flex items-center space-x-2">

@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,6 +45,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
   }
 }
 
@@ -100,7 +108,7 @@
     @apply bg-gradient-to-r from-orange-500 to-rose-500;
   }
   
-  /* Northeast-inspired gradients */
+  /* India-inspired gradients */
   .bg-gradient-hills {
     @apply bg-gradient-to-r from-green-50 to-emerald-100;
   }
@@ -197,45 +205,4 @@
 
 .scrollbar-none::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
-}
-
-/* Keep existing animations from the original file */
-.delay-100 {
-  animation-delay: 0.1s;
-}
-.delay-200 {
-  animation-delay: 0.2s;
-}
-.delay-300 {
-  animation-delay: 0.3s;
-}
-.delay-400 {
-  animation-delay: 0.4s;
-}
-.delay-500 {
-  animation-delay: 0.5s;
-}
-
-.hover-lift {
-  @apply transition-transform duration-300 hover:-translate-y-1;
-}
-
-.hover-glow {
-  @apply transition-all duration-300 hover:shadow-lg hover:shadow-accent/20;
-}
-
-.card-blue {
-  @apply border-l-4 border-blue-400;
-}
-
-.card-purple {
-  @apply border-l-4 border-purple-400;
-}
-
-.card-teal {
-  @apply border-l-4 border-teal-400;
-}
-
-.card-orange {
-  @apply border-l-4 border-orange-400;
 }

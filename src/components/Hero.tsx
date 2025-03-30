@@ -16,17 +16,17 @@ const Hero = () => {
       
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight md:leading-tight lg:leading-tight mb-4 md:mb-6 animate-fade-up bg-gradient-to-r from-amber-600 to-rose-500 bg-clip-text text-transparent">
-            Discover Northeast India's Hidden Treasures
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-semibold leading-tight md:leading-tight lg:leading-tight mb-4 md:mb-6 animate-fade-up bg-gradient-to-r from-amber-600 to-rose-500 bg-clip-text text-transparent">
+            Discover India's Hidden Treasures
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 animate-fade-up delay-100">
-            Experience the untouched beauty of misty mountains, pristine lakes, and rich cultural heritage.
+          <p className="font-poppins text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 animate-fade-up delay-100">
+            Experience the untouched beauty of India's diverse landscapes, from Northeast's misty mountains to South's pristine beaches.
           </p>
           
           <SearchBar className="delay-200" />
           
           <div className="mt-8 animate-fade-up delay-300">
-            <Link to="/places" className="inline-flex items-center text-accent hover:text-accent/80 font-medium hover-lift">
+            <Link to="/places" className="font-poppins inline-flex items-center text-accent hover:text-accent/80 font-medium hover-lift">
               Explore Featured Destinations <ArrowRight className="ml-2 h-4 w-4 animate-float" />
             </Link>
           </div>

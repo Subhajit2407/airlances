@@ -20,7 +20,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['-apple-system', 'BlinkMacSystemFont', 'San Francisco', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif']
+				sans: ['-apple-system', 'BlinkMacSystemFont', 'San Francisco', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+				playfair: ['Playfair Display', 'serif'],
+				poppins: ['Poppins', 'sans-serif']
 			},
 			colors: {
 				border: 'hsl(var(--border))',

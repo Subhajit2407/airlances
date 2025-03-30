@@ -32,19 +32,19 @@ const Header = () => {
         <div className="flex items-center">
           <Link 
             to="/" 
-            className="font-semibold text-xl text-primary transition-all duration-200 hover:opacity-80"
+            className="font-playfair font-bold text-xl text-primary transition-all duration-200 hover:opacity-80"
           >
-            <span className="text-accent">air</span>place
+            <span className="text-accent">Amazing</span>Places
           </Link>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-sm font-medium hover:text-accent transition-all duration-200">Home</Link>
-          <Link to="/places" className="text-sm font-medium hover:text-accent transition-all duration-200">Places</Link>
-          <Link to="/experiences" className="text-sm font-medium hover:text-accent transition-all duration-200">Experiences</Link>
-          <Link to="/about" className="text-sm font-medium hover:text-accent transition-all duration-200">About</Link>
-          <Link to="/contact" className="text-sm font-medium hover:text-accent transition-all duration-200">Contact</Link>
+          <Link to="/" className="font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Home</Link>
+          <Link to="/places" className="font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Places</Link>
+          <Link to="/experiences" className="font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Experiences</Link>
+          <Link to="/about" className="font-poppins text-sm font-medium hover:text-accent transition-all duration-200">About</Link>
+          <Link to="/contact" className="font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Contact</Link>
         </nav>
 
         {/* Right Actions */}
@@ -71,11 +71,11 @@ const Header = () => {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 animate-fade-in">
           <div className="py-4 px-6 space-y-3">
-            <Link to="/" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Home</Link>
-            <Link to="/places" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Places</Link>
-            <Link to="/experiences" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Experiences</Link>
-            <Link to="/about" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">About</Link>
-            <Link to="/contact" className="block py-2 text-sm font-medium hover:text-accent transition-all duration-200">Contact</Link>
+            <Link to="/" className="block py-2 font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Home</Link>
+            <Link to="/places" className="block py-2 font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Places</Link>
+            <Link to="/experiences" className="block py-2 font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Experiences</Link>
+            <Link to="/about" className="block py-2 font-poppins text-sm font-medium hover:text-accent transition-all duration-200">About</Link>
+            <Link to="/contact" className="block py-2 font-poppins text-sm font-medium hover:text-accent transition-all duration-200">Contact</Link>
           </div>
         </div>
       )}

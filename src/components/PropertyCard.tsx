@@ -74,22 +74,22 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
       {/* Content */}
       <div className="pt-4 space-y-1 p-2">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-base text-primary truncate group-hover:text-accent transition-colors">{property.title}</h3>
+          <h3 className="font-playfair font-medium text-base text-primary truncate group-hover:text-accent transition-colors">{property.title}</h3>
           <div className="flex items-center">
             <Star className="w-4 h-4 text-amber-500 fill-amber-500 mr-1" />
             <span className="text-sm font-medium">{property.rating}</span>
           </div>
         </div>
         
-        <p className="text-sm text-muted-foreground truncate">{property.location}</p>
+        <p className="font-poppins text-sm text-muted-foreground truncate">{property.location}</p>
         
         <div className="flex items-center justify-between pt-2">
-          <p className="text-sm">
-            <span className="font-semibold text-accent">₹{Math.round(property.price * 83)}</span>
+          <p className="font-poppins text-sm">
+            <span className="font-semibold text-accent">₹{property.price}</span>
             <span className="text-muted-foreground"> / night</span>
           </p>
           
-          <div className="text-xs text-muted-foreground">
+          <div className="font-poppins text-xs text-muted-foreground">
             {property.beds} {property.beds === 1 ? 'bed' : 'beds'} &middot; {property.baths} {property.baths === 1 ? 'bath' : 'baths'}
           </div>
         </div>
@@ -102,13 +102,13 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
           {property.amenities.slice(0, 3).map((amenity, i) => (
             <span 
               key={i} 
-              className="bg-accent/10 text-accent text-xs px-2 py-1 rounded-full"
+              className="bg-accent/10 text-accent text-xs px-2 py-1 rounded-full font-poppins"
             >
               {amenity}
             </span>
           ))}
           {property.amenities.length > 3 && 
-            <span className="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full">
+            <span className="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full font-poppins">
               +{property.amenities.length - 3}
             </span>
           }

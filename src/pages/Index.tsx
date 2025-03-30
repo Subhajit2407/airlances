@@ -6,7 +6,7 @@ import FeaturedProperties from '@/components/FeaturedProperties';
 import Footer from '@/components/Footer';
 import PropertyCard from '@/components/PropertyCard';
 import { properties, newProperties } from '@/lib/data';
-import { ArrowRight, Compass, Map, Bookmark, Sunrise } from 'lucide-react';
+import { ArrowRight, Compass, Map, Bookmark, Sunrise, Mountain, Utensils, Flag, Cloud } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
@@ -20,15 +20,15 @@ const Index = () => {
       {/* Featured Properties */}
       <FeaturedProperties />
       
-      {/* New Listings - Northeast Theme */}
+      {/* New Listings - India Theme */}
       <section className="py-16 px-6 bg-gradient-hills relative overflow-hidden">
         {/* Decorative circles */}
         <div className="absolute top-1/3 left-1/4 w-40 h-40 bg-green-100/40 rounded-full blur-3xl -z-0"></div>
         <div className="absolute bottom-1/4 right-1/4 w-60 h-60 bg-emerald-100/30 rounded-full blur-3xl -z-0"></div>
         
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-medium mb-2 text-gradient-nature animate-fade-up">New Treasures of the Northeast</h2>
-          <p className="text-muted-foreground mb-8 animate-fade-up delay-100">Recently added stays in India's magical Northeast frontier</p>
+          <h2 className="text-2xl font-playfair font-medium mb-2 text-gradient-nature animate-fade-up">New Treasures of India</h2>
+          <p className="text-muted-foreground mb-8 font-poppins animate-fade-up delay-100">Recently added stays in India's most magical destinations</p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {newProperties.map((property, index) => (
@@ -42,49 +42,83 @@ const Index = () => {
           </div>
           
           <div className="mt-10 text-center animate-fade-up delay-300">
-            <Link to="/places" className="inline-flex items-center text-accent hover:text-accent/80 font-medium hover-lift">
+            <Link to="/places" className="inline-flex items-center text-accent hover:text-accent/80 font-medium hover-lift font-poppins">
               View all properties <ArrowRight className="ml-2 h-4 w-4 animate-float" />
             </Link>
           </div>
         </div>
       </section>
       
-      {/* Regional Experiences Section - NEW */}
+      {/* Regional Experiences Section */}
       <section className="py-16 px-6 bg-gradient-spices">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-medium mb-6 text-gradient-primary text-center animate-fade-up">Experience Northeast India</h2>
+          <h2 className="text-2xl font-playfair font-medium mb-6 text-gradient-primary text-center animate-fade-up">Experience Incredible India</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 animate-fade-up delay-100">
             <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
               <div className="bg-orange-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
                 <Map className="text-orange-600 w-6 h-6" />
               </div>
-              <h3 className="font-medium text-lg mb-2">Living Bridges</h3>
-              <p className="text-muted-foreground text-sm">Discover Meghalaya's famous root bridges, grown over decades by Khasi tribes.</p>
+              <h3 className="font-playfair font-medium text-lg mb-2">Living Bridges</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Discover Meghalaya's famous root bridges, grown over decades by Khasi tribes.</p>
             </div>
             
             <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
               <div className="bg-green-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <Compass className="text-green-600 w-6 h-6" />
+                <Utensils className="text-green-600 w-6 h-6" />
               </div>
-              <h3 className="font-medium text-lg mb-2">Tea Plantations</h3>
-              <p className="text-muted-foreground text-sm">Tour Assam's historic tea estates and learn the art of tea cultivation.</p>
+              <h3 className="font-playfair font-medium text-lg mb-2">Culinary Journey</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Experience the diverse flavors from spicy Southern curries to Northeast's bamboo delicacies.</p>
             </div>
             
             <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
               <div className="bg-rose-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <Bookmark className="text-rose-600 w-6 h-6" />
+                <Flag className="text-rose-600 w-6 h-6" />
               </div>
-              <h3 className="font-medium text-lg mb-2">Tribal Heritage</h3>
-              <p className="text-muted-foreground text-sm">Experience the culture of over 200 indigenous tribes with unique traditions.</p>
+              <h3 className="font-playfair font-medium text-lg mb-2">Tribal Heritage</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Experience the culture of over 200 indigenous tribes with unique traditions.</p>
             </div>
             
             <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
               <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                <Sunrise className="text-blue-600 w-6 h-6" />
+                <Mountain className="text-blue-600 w-6 h-6" />
               </div>
-              <h3 className="font-medium text-lg mb-2">Mystic Mountains</h3>
-              <p className="text-muted-foreground text-sm">Trek through the Eastern Himalayas with views of snow-capped peaks.</p>
+              <h3 className="font-playfair font-medium text-lg mb-2">Mystic Mountains</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Trek through the Himalayas with views of snow-capped peaks and hidden valleys.</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 animate-fade-up delay-200 mt-6">
+            <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
+              <div className="bg-amber-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                <Cloud className="text-amber-600 w-6 h-6" />
+              </div>
+              <h3 className="font-playfair font-medium text-lg mb-2">Valley of Clouds</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Visit Meghalaya, the "abode of clouds" with its misty landscapes and waterfalls.</p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
+              <div className="bg-teal-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                <Compass className="text-teal-600 w-6 h-6" />
+              </div>
+              <h3 className="font-playfair font-medium text-lg mb-2">Desert Safari</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Experience the golden sands of Rajasthan's Thar desert on camelback.</p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
+              <div className="bg-indigo-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                <Bookmark className="text-indigo-600 w-6 h-6" />
+              </div>
+              <h3 className="font-playfair font-medium text-lg mb-2">Temple Architecture</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Marvel at the intricate carvings of ancient temples across South India.</p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 hover-lift hover-glow transition-all">
+              <div className="bg-purple-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                <Sunrise className="text-purple-600 w-6 h-6" />
+              </div>
+              <h3 className="font-playfair font-medium text-lg mb-2">Backwater Cruises</h3>
+              <p className="text-muted-foreground text-sm font-poppins">Glide through Kerala's tranquil backwaters on a traditional houseboat.</p>
             </div>
           </div>
         </div>
@@ -101,13 +135,13 @@ const Index = () => {
             </div>
             
             <div className="max-w-lg relative z-10">
-              <h3 className="text-2xl md:text-3xl font-medium text-white mb-4 animate-fade-up">
-                Become a Northeast host
+              <h3 className="font-playfair text-2xl md:text-3xl font-medium text-white mb-4 animate-fade-up">
+                Become a host in India
               </h3>
-              <p className="text-white/90 mb-6 animate-fade-up delay-100">
+              <p className="font-poppins text-white/90 mb-6 animate-fade-up delay-100">
                 Share your unique local culture and earn by welcoming travelers to your traditional home or property.
               </p>
-              <button className="bg-white text-orange-500 hover:bg-orange-50 px-6 py-3 rounded-full font-medium transition-all focus-ring animate-fade-up delay-200 hover-lift">
+              <button className="font-poppins bg-white text-orange-500 hover:bg-orange-50 px-6 py-3 rounded-full font-medium transition-all focus-ring animate-fade-up delay-200 hover-lift">
                 Start hosting
               </button>
             </div>
@@ -118,8 +152,8 @@ const Index = () => {
       {/* All Properties */}
       <section className="py-16 px-6 bg-gradient-sunset">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-medium mb-2 text-gradient-primary animate-fade-up">Explore all stays</h2>
-          <p className="text-muted-foreground mb-8 animate-fade-up delay-100">Find your perfect Northeast getaway</p>
+          <h2 className="text-2xl font-playfair font-medium mb-2 text-gradient-primary animate-fade-up">Explore all stays</h2>
+          <p className="font-poppins text-muted-foreground mb-8 animate-fade-up delay-100">Find your perfect getaway across India</p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {properties.slice(0, 8).map((property, index) => (
@@ -133,7 +167,7 @@ const Index = () => {
           </div>
           
           <div className="mt-10 text-center animate-fade-up delay-300">
-            <Link to="/places" className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-vibrant text-white hover:bg-accent/90 transition-all font-medium hover-lift">
+            <Link to="/places" className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-vibrant text-white hover:bg-accent/90 transition-all font-medium hover-lift font-poppins">
               View all properties <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
