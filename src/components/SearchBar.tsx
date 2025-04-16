@@ -33,20 +33,33 @@ const mockSearchResults = (query: string): SearchResult[] => {
     { id: '7', title: 'Mysore Palace', location: 'Karnataka', type: 'destination', path: '/places' },
     { id: '8', title: 'Meenakshi Temple', location: 'Tamil Nadu', type: 'destination', path: '/places' },
     
+    // North destinations
+    { id: '9', title: 'Taj Mahal', location: 'Agra, Uttar Pradesh', type: 'destination', path: '/places' },
+    { id: '10', title: 'Golden Temple', location: 'Amritsar, Punjab', type: 'destination', path: '/places' },
+    { id: '11', title: 'Leh Ladakh', location: 'Jammu & Kashmir', type: 'destination', path: '/places' },
+    { id: '12', title: 'Jaipur City Palace', location: 'Rajasthan', type: 'destination', path: '/places' },
+    
+    // West destinations
+    { id: '13', title: 'Gateway of India', location: 'Mumbai, Maharashtra', type: 'destination', path: '/places' },
+    { id: '14', title: 'Goa Beaches', location: 'Goa', type: 'destination', path: '/places' },
+    
     // Central destinations
-    { id: '9', title: 'Khajuraho Temples', location: 'Madhya Pradesh', type: 'destination', path: '/places' },
-    { id: '10', title: 'Taj Mahal', location: 'Agra', type: 'destination', path: '/places' },
+    { id: '15', title: 'Khajuraho Temples', location: 'Madhya Pradesh', type: 'destination', path: '/places' },
     
     // Experiences
-    { id: '11', title: 'Tea Plantation Tours', location: 'Assam', type: 'experience', path: '/experiences' },
-    { id: '12', title: 'Hornbill Festival', location: 'Nagaland', type: 'experience', path: '/experiences' },
-    { id: '13', title: 'Houseboat Stay', location: 'Kerala', type: 'experience', path: '/experiences' },
+    { id: '21', title: 'Tea Plantation Tours', location: 'Assam', type: 'experience', path: '/experiences' },
+    { id: '22', title: 'Hornbill Festival', location: 'Nagaland', type: 'experience', path: '/experiences' },
+    { id: '23', title: 'Houseboat Stay', location: 'Kerala', type: 'experience', path: '/experiences' },
+    { id: '24', title: 'Desert Safari', location: 'Rajasthan', type: 'experience', path: '/experiences' },
+    { id: '25', title: 'Yoga Retreat', location: 'Rishikesh', type: 'experience', path: '/experiences' },
     
     // Stays
-    { id: '14', title: 'Riverfront Cottage', location: 'Majuli, Assam', type: 'stay', path: '/places' },
-    { id: '15', title: 'Mountain Retreat', location: 'Tawang', type: 'stay', path: '/places' },
-    { id: '16', title: 'Floating Homestay', location: 'Loktak Lake', type: 'stay', path: '/places' },
-    { id: '17', title: 'Heritage Haveli', location: 'Jaipur', type: 'stay', path: '/places' },
+    { id: '31', title: 'Riverfront Cottage', location: 'Majuli, Assam', type: 'stay', path: '/property/1' },
+    { id: '32', title: 'Mountain Retreat', location: 'Tawang', type: 'stay', path: '/property/2' },
+    { id: '33', title: 'Floating Homestay', location: 'Loktak Lake', type: 'stay', path: '/property/3' },
+    { id: '34', title: 'Heritage Haveli', location: 'Jaipur', type: 'stay', path: '/property/4' },
+    { id: '35', title: 'Beachfront Villa', location: 'Goa', type: 'stay', path: '/property/5' },
+    { id: '36', title: 'Hillside Cottage', location: 'Shillong, Meghalaya', type: 'stay', path: '/property/6' },
   ];
   
   // Filter based on query
@@ -90,7 +103,7 @@ const SearchBar = ({ className }: { className?: string }) => {
         }, 600);
       } catch (error) {
         console.error("Search error:", error);
-        toast.error("Search failed. Please try again.");
+        toast("Search failed. Please try again.");
         setIsLoading(false);
       }
     };
@@ -102,7 +115,7 @@ const SearchBar = ({ className }: { className?: string }) => {
     navigate(result.path);
     setIsOpen(false);
     setQuery('');
-    toast.success(`Exploring ${result.title} in ${result.location}`);
+    toast(`Exploring ${result.title} in ${result.location}`);
   };
 
   const handleOpenSearch = () => {
@@ -116,36 +129,38 @@ const SearchBar = ({ className }: { className?: string }) => {
         className
       )}>
         <div className="flex items-center">
-          {tabs.map((tab, index) => (
-            <React.Fragment key={tab.id}>
-              <button
-                onClick={() => {
-                  setActiveTab(tab.id);
-                  if (tab.id === 'location') handleOpenSearch();
-                }}
-                className={cn(
-                  "flex items-center py-3 px-6 rounded-full flex-1 transition-all text-left",
-                  activeTab === tab.id 
-                    ? "bg-white shadow-sm text-primary" 
-                    : "text-gray-600 hover:bg-white/50"
+          {tabs.map((tab, index) => {
+            return (
+              <React.Fragment key={tab.id}>
+                <button
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    if (tab.id === 'location') handleOpenSearch();
+                  }}
+                  className={cn(
+                    "flex items-center py-3 px-6 rounded-full flex-1 transition-all text-left",
+                    activeTab === tab.id 
+                      ? "bg-white shadow-sm text-primary" 
+                      : "text-gray-600 hover:bg-white/50"
+                  )}
+                >
+                  <tab.icon className="w-4 h-4 mr-3 text-gray-500" />
+                  <div className="flex flex-col">
+                    <span className="text-xs font-medium">{tab.label}</span>
+                    <span className="text-sm truncate">
+                      {tab.id === 'location' && (query || 'Search destinations')}
+                      {tab.id === 'dates' && 'Any week'}
+                      {tab.id === 'guests' && 'Add guests'}
+                    </span>
+                  </div>
+                </button>
+                
+                {index < tabs.length - 1 && (
+                  <div className="h-8 w-px bg-gray-200 mx-1"></div>
                 )}
-              >
-                <tab.icon className="w-4 h-4 mr-3 text-gray-500" />
-                <div className="flex flex-col">
-                  <span className="text-xs font-medium">{tab.label}</span>
-                  <span className="text-sm truncate">
-                    {tab.id === 'location' && (query || 'Search destinations')}
-                    {tab.id === 'dates' && 'Any week'}
-                    {tab.id === 'guests' && 'Add guests'}
-                  </span>
-                </div>
-              </button>
-              
-              {index < tabs.length - 1 && (
-                <div className="h-8 w-px bg-gray-200 mx-1"></div>
-              )}
-            </React.Fragment>
-          ))}
+              </React.Fragment>
+            );
+          })}
 
           <button 
             onClick={handleOpenSearch}

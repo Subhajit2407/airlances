@@ -16,6 +16,7 @@ import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import Profile from "./pages/Profile";
 import Sitemap from "./pages/Sitemap";
+import PropertyDetail from "./pages/PropertyDetail";
 import { CartProvider } from "@/context/CartContext";
 
 // Create the query client
@@ -34,6 +35,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/places" element={<Places />} />
+                <Route path="/property/:id" element={<PropertyDetail />} />
                 <Route path="/experiences" element={<Experiences />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />

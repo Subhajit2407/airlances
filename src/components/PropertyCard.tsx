@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Star, Heart, MapPin, Calendar, User, ShoppingBag } from 'lucide-react';
 import { Property } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useCart } from '@/context/CartContext';
-import { format } from 'date-fns';
+import { toast } from 'sonner';
 
 interface PropertyCardProps {
   property: Property;
@@ -32,6 +32,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState(1);
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const today = new Date().toISOString().split('T')[0];
   const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
@@ -63,15 +64,23 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
       price: calculatedPrice
     });
     
+    toast("Added to cart", {
+      description: `${property.title} has been added to your cart.`
+    });
+    
     setBookingOpen(false);
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    navigate(`/property/${property.id}`);
   };
 
   return (
     <>
-      <Link 
-        to={`/property/${property.id}`}
+      <div 
+        onClick={handleCardClick}
         className={cn(
-          "group rounded-xl overflow-hidden transition-all hover-glow hover-lift animate-fade-up",
+          "group rounded-xl overflow-hidden transition-all hover-glow hover-lift animate-fade-up cursor-pointer",
           "bg-white relative",
           animationDelay,
           className
@@ -100,7 +109,10 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
             )}
             onClick={(e) => {
               e.preventDefault(); // Prevent navigation when clicking the heart
-              console.log('Added to favorites:', property.title);
+              e.stopPropagation();
+              toast("Added to favorites", {
+                description: `${property.title} has been added to your favorites.`
+              });
             }}
             aria-label="Add to favorites"
           >
@@ -178,7 +190,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, className, index 
             }
           </div>
         </div>
-      </Link>
+      </div>
       
       {/* Booking Dialog */}
       <Dialog open={bookingOpen} onOpenChange={setBookingOpen}>
