@@ -15,12 +15,28 @@ interface SearchResult {
   path: string;
 }
 
+// Enhanced mock data with more Indian cities, especially including Delhi
 const mockSearchResults = (query: string): SearchResult[] => {
   // This simulates a search API response based on the query
   if (!query || query.length < 2) return [];
   
   // These would come from an API in a real implementation
   const results: SearchResult[] = [
+    // Major cities
+    { id: 'delhi1', title: 'Delhi', location: 'National Capital Territory', type: 'destination', path: '/places?location=Delhi' },
+    { id: 'delhi2', title: 'Old Delhi Heritage Walk', location: 'Delhi', type: 'experience', path: '/experiences' },
+    { id: 'delhi3', title: 'Luxury Hotel in Connaught Place', location: 'Delhi', type: 'stay', path: '/property/7' },
+    
+    // Mumbai
+    { id: 'mumbai1', title: 'Mumbai', location: 'Maharashtra', type: 'destination', path: '/places?location=Mumbai' },
+    { id: 'mumbai2', title: 'Gateway of India', location: 'Mumbai, Maharashtra', type: 'destination', path: '/places' },
+    
+    // Kolkata
+    { id: 'kolkata1', title: 'Kolkata', location: 'West Bengal', type: 'destination', path: '/places?location=Kolkata' },
+    
+    // Chennai
+    { id: 'chennai1', title: 'Chennai', location: 'Tamil Nadu', type: 'destination', path: '/places?location=Chennai' },
+    
     // Northeast destinations
     { id: '1', title: 'Majuli Island', location: 'Assam', type: 'destination', path: '/places' },
     { id: '2', title: 'Tawang Monastery', location: 'Arunachal Pradesh', type: 'destination', path: '/places' },
@@ -29,7 +45,7 @@ const mockSearchResults = (query: string): SearchResult[] => {
     { id: '5', title: 'Dzükou Valley', location: 'Nagaland', type: 'destination', path: '/places' },
     
     // South destinations
-    { id: '6', title: 'Backwaters', location: 'Kerala', type: 'destination', path: '/places' },
+    { id: '6', title: 'Backwaters', location: 'Kerala', type: 'destination', path: '/places?category=backwaters' },
     { id: '7', title: 'Mysore Palace', location: 'Karnataka', type: 'destination', path: '/places' },
     { id: '8', title: 'Meenakshi Temple', location: 'Tamil Nadu', type: 'destination', path: '/places' },
     
@@ -41,7 +57,7 @@ const mockSearchResults = (query: string): SearchResult[] => {
     
     // West destinations
     { id: '13', title: 'Gateway of India', location: 'Mumbai, Maharashtra', type: 'destination', path: '/places' },
-    { id: '14', title: 'Goa Beaches', location: 'Goa', type: 'destination', path: '/places' },
+    { id: '14', title: 'Goa Beaches', location: 'Goa', type: 'destination', path: '/places?category=beaches' },
     
     // Central destinations
     { id: '15', title: 'Khajuraho Temples', location: 'Madhya Pradesh', type: 'destination', path: '/places' },
@@ -62,11 +78,12 @@ const mockSearchResults = (query: string): SearchResult[] => {
     { id: '36', title: 'Hillside Cottage', location: 'Shillong, Meghalaya', type: 'stay', path: '/property/6' },
   ];
   
-  // Filter based on query
+  // Filter based on query - make case insensitive search more robust
+  const lowerQuery = query.toLowerCase();
   return results.filter(result => 
-    result.title.toLowerCase().includes(query.toLowerCase()) || 
-    result.location.toLowerCase().includes(query.toLowerCase())
-  ).slice(0, 8); // Limit to 8 results
+    result.title.toLowerCase().includes(lowerQuery) || 
+    result.location.toLowerCase().includes(lowerQuery)
+  ).slice(0, 10); // Limit to 10 results
 };
 
 const SearchBar = ({ className }: { className?: string }) => {
@@ -122,6 +139,10 @@ const SearchBar = ({ className }: { className?: string }) => {
     setIsOpen(true);
   };
 
+  const handleClearSearch = () => {
+    setQuery('');
+  };
+
   return (
     <>
       <div className={cn(
@@ -171,12 +192,22 @@ const SearchBar = ({ className }: { className?: string }) => {
         </div>
       </div>
 
-      <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
-        <CommandInput 
-          placeholder="Search amazing destinations across India..." 
-          value={query}
-          onValueChange={setQuery}
-        />
+      <CommandDialog open={isOpen} onOpenChange={setIsOpen} label="Search dialog" description="Search for destinations, experiences, and stays">
+        <div className="flex items-center border-b px-3">
+          <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+          <CommandInput 
+            placeholder="Search amazing destinations across India..." 
+            value={query}
+            onValueChange={setQuery}
+            className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+          />
+          {query && (
+            <button onClick={handleClearSearch} className="focus:outline-none">
+              <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
+            </button>
+          )}
+        </div>
+        
         <CommandList>
           {isLoading && (
             <div className="flex items-center justify-center py-6">
@@ -186,26 +217,28 @@ const SearchBar = ({ className }: { className?: string }) => {
           )}
           
           {!isLoading && query.length > 0 && results.length === 0 && (
-            <CommandEmpty>No places found. Try a different search.</CommandEmpty>
+            <CommandEmpty>No places found. Try a different search term or location.</CommandEmpty>
           )}
           
           {!isLoading && results.length > 0 && (
             <>
-              <CommandGroup heading="Destinations">
-                {results.filter(result => result.type === 'destination').map((result) => (
-                  <CommandItem 
-                    key={result.id}
-                    onSelect={() => handleSelect(result)}
-                    className="flex items-center cursor-pointer"
-                  >
-                    <MapPin className="mr-2 h-4 w-4 text-accent" />
-                    <div>
-                      <div className="font-medium">{result.title}</div>
-                      <div className="text-xs text-muted-foreground">{result.location}</div>
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+              {results.some(result => result.type === 'destination') && (
+                <CommandGroup heading="Destinations">
+                  {results.filter(result => result.type === 'destination').map((result) => (
+                    <CommandItem 
+                      key={result.id}
+                      onSelect={() => handleSelect(result)}
+                      className="flex items-center cursor-pointer"
+                    >
+                      <MapPin className="mr-2 h-4 w-4 text-accent" />
+                      <div>
+                        <div className="font-medium">{result.title}</div>
+                        <div className="text-xs text-muted-foreground">{result.location}</div>
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
               
               {results.some(result => result.type === 'experience') && (
                 <CommandGroup heading="Experiences">
@@ -243,6 +276,42 @@ const SearchBar = ({ className }: { className?: string }) => {
                 </CommandGroup>
               )}
             </>
+          )}
+
+          {!isLoading && query.length === 0 && (
+            <div className="py-6 px-4 text-center text-sm text-muted-foreground">
+              <p>Search for destinations across India</p>
+              <div className="grid grid-cols-2 gap-2 mt-4">
+                <button 
+                  onClick={() => setQuery("Delhi")}
+                  className="p-2 text-left rounded-md hover:bg-accent/10"
+                >
+                  <p className="font-medium">Delhi</p>
+                  <p className="text-xs">National Capital Territory</p>
+                </button>
+                <button 
+                  onClick={() => setQuery("Mumbai")}
+                  className="p-2 text-left rounded-md hover:bg-accent/10"
+                >
+                  <p className="font-medium">Mumbai</p>
+                  <p className="text-xs">Maharashtra</p>
+                </button>
+                <button 
+                  onClick={() => setQuery("Kerala")}
+                  className="p-2 text-left rounded-md hover:bg-accent/10"
+                >
+                  <p className="font-medium">Kerala</p>
+                  <p className="text-xs">Backwaters</p>
+                </button>
+                <button 
+                  onClick={() => setQuery("Goa")}
+                  className="p-2 text-left rounded-md hover:bg-accent/10"
+                >
+                  <p className="font-medium">Goa</p>
+                  <p className="text-xs">Beaches</p>
+                </button>
+              </div>
+            </div>
           )}
         </CommandList>
       </CommandDialog>

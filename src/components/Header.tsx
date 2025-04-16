@@ -40,7 +40,7 @@ const Header = () => {
             to="/" 
             className="font-playfair font-bold text-xl text-primary transition-all duration-200 hover:opacity-80"
           >
-            <span className="text-accent">Airlace</span>
+            <span className="text-accent">Airlaces</span>
           </Link>
         </div>
 
@@ -58,15 +58,16 @@ const Header = () => {
           <button 
             className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring"
             onClick={handleSearchClick}
+            aria-label="Search"
           >
             <Search className="w-5 h-5 text-gray-700" />
           </button>
           
-          <Link to="/profile" className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring">
+          <Link to="/profile" className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring" aria-label="Profile">
             <User className="w-5 h-5 text-gray-700" />
           </Link>
           
-          <Link to="/cart" className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring relative">
+          <Link to="/cart" className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring relative" aria-label="Cart">
             <ShoppingBag className="w-5 h-5 text-gray-700" />
             <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
               0
@@ -77,6 +78,8 @@ const Header = () => {
           <button 
             className="md:hidden p-2 rounded-full hover:bg-gray-100 transition-all focus-ring"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menu"
+            aria-expanded={mobileMenuOpen}
           >
             <Menu className="w-5 h-5 text-gray-700" />
           </button>
