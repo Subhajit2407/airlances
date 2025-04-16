@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Calendar, Users, X, Loader2 } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, X, Loader2, History, Bookmark, Plane, Hotel, Coffee, Navigation, Compass, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command';
 import { useNavigate } from 'react-router-dom';
@@ -15,14 +15,14 @@ interface SearchResult {
   path: string;
 }
 
-// Enhanced mock data with more Indian cities, especially including Delhi
+// Enhanced mock data with more Indian cities and international destinations
 const mockSearchResults = (query: string): SearchResult[] => {
   // This simulates a search API response based on the query
   if (!query || query.length < 2) return [];
   
   // These would come from an API in a real implementation
   const results: SearchResult[] = [
-    // Major cities
+    // Major Indian cities
     { id: 'delhi1', title: 'Delhi', location: 'National Capital Territory', type: 'destination', path: '/places?location=Delhi' },
     { id: 'delhi2', title: 'Old Delhi Heritage Walk', location: 'Delhi', type: 'experience', path: '/experiences' },
     { id: 'delhi3', title: 'Luxury Hotel in Connaught Place', location: 'Delhi', type: 'stay', path: '/property/7' },
@@ -76,6 +76,28 @@ const mockSearchResults = (query: string): SearchResult[] => {
     { id: '34', title: 'Heritage Haveli', location: 'Jaipur', type: 'stay', path: '/property/4' },
     { id: '35', title: 'Beachfront Villa', location: 'Goa', type: 'stay', path: '/property/5' },
     { id: '36', title: 'Hillside Cottage', location: 'Shillong, Meghalaya', type: 'stay', path: '/property/6' },
+    
+    // New International Destinations
+    { id: 'intl1', title: 'Singapore', location: 'Southeast Asia', type: 'destination', path: '/places?location=Singapore' },
+    { id: 'intl2', title: 'Dubai', location: 'United Arab Emirates', type: 'destination', path: '/places?location=Dubai' },
+    { id: 'intl3', title: 'Bangkok', location: 'Thailand', type: 'destination', path: '/places?location=Bangkok' },
+    { id: 'intl4', title: 'Bali', location: 'Indonesia', type: 'destination', path: '/places?location=Bali' },
+    { id: 'intl5', title: 'Tokyo', location: 'Japan', type: 'destination', path: '/places?location=Tokyo' },
+    { id: 'intl6', title: 'Paris', location: 'France', type: 'destination', path: '/places?location=Paris' },
+    { id: 'intl7', title: 'London', location: 'United Kingdom', type: 'destination', path: '/places?location=London' },
+    { id: 'intl8', title: 'New York', location: 'United States', type: 'destination', path: '/places?location=New York' },
+    
+    // More Indian Cities
+    { id: 'ind1', title: 'Bangalore', location: 'Karnataka', type: 'destination', path: '/places?location=Bangalore' },
+    { id: 'ind2', title: 'Hyderabad', location: 'Telangana', type: 'destination', path: '/places?location=Hyderabad' },
+    { id: 'ind3', title: 'Ahmedabad', location: 'Gujarat', type: 'destination', path: '/places?location=Ahmedabad' },
+    { id: 'ind4', title: 'Pune', location: 'Maharashtra', type: 'destination', path: '/places?location=Pune' },
+    { id: 'ind5', title: 'Chandigarh', location: 'Punjab & Haryana', type: 'destination', path: '/places?location=Chandigarh' },
+    { id: 'ind6', title: 'Lucknow', location: 'Uttar Pradesh', type: 'destination', path: '/places?location=Lucknow' },
+    { id: 'ind7', title: 'Kochi', location: 'Kerala', type: 'destination', path: '/places?location=Kochi' },
+    { id: 'ind8', title: 'Varanasi', location: 'Uttar Pradesh', type: 'destination', path: '/places?location=Varanasi' },
+    { id: 'ind9', title: 'Darjeeling', location: 'West Bengal', type: 'destination', path: '/places?location=Darjeeling' },
+    { id: 'ind10', title: 'Pondicherry', location: 'Tamil Nadu', type: 'destination', path: '/places?location=Pondicherry' },
   ];
   
   // Filter based on query - make case insensitive search more robust
@@ -83,8 +105,11 @@ const mockSearchResults = (query: string): SearchResult[] => {
   return results.filter(result => 
     result.title.toLowerCase().includes(lowerQuery) || 
     result.location.toLowerCase().includes(lowerQuery)
-  ).slice(0, 10); // Limit to 10 results
+  ).slice(0, 15); // Limit to 15 results
 };
+
+// Maximum number of recent searches to store
+const MAX_RECENT_SEARCHES = 5;
 
 const SearchBar = ({ className }: { className?: string }) => {
   const [activeTab, setActiveTab] = useState('location');
@@ -92,6 +117,18 @@ const SearchBar = ({ className }: { className?: string }) => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [recentSearches, setRecentSearches] = useState<SearchResult[]>(() => {
+    // Initialize from localStorage if available
+    const saved = localStorage.getItem('airlaces-recent-searches');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [trendingSearches, setTrendingSearches] = useState<SearchResult[]>([
+    { id: 'trend1', title: 'Goa', location: 'India', type: 'destination', path: '/places?location=Goa' },
+    { id: 'trend2', title: 'Kerala Backwaters', location: 'Kerala', type: 'destination', path: '/places?category=backwaters' },
+    { id: 'trend3', title: 'Singapore', location: 'Southeast Asia', type: 'destination', path: '/places?location=Singapore' },
+    { id: 'trend4', title: 'Dubai', location: 'UAE', type: 'destination', path: '/places?location=Dubai' },
+  ]);
+  
   const debouncedQuery = useDebounce(query, 300);
   const navigate = useNavigate();
   
@@ -100,6 +137,11 @@ const SearchBar = ({ className }: { className?: string }) => {
     { id: 'dates', label: 'When', icon: Calendar },
     { id: 'guests', label: 'Who', icon: Users },
   ];
+
+  // Save recent searches to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('airlaces-recent-searches', JSON.stringify(recentSearches));
+  }, [recentSearches]);
 
   // Effect for search
   useEffect(() => {
@@ -128,11 +170,29 @@ const SearchBar = ({ className }: { className?: string }) => {
     performSearch();
   }, [debouncedQuery]);
 
+  // Add to recent searches
+  const addToRecentSearches = (result: SearchResult) => {
+    setRecentSearches(prev => {
+      // Remove if already exists (to move it to the top)
+      const filtered = prev.filter(item => item.id !== result.id);
+      // Add to the beginning and limit to MAX_RECENT_SEARCHES
+      return [result, ...filtered].slice(0, MAX_RECENT_SEARCHES);
+    });
+  };
+
   const handleSelect = (result: SearchResult) => {
+    addToRecentSearches(result);
     navigate(result.path);
     setIsOpen(false);
     setQuery('');
     toast(`Exploring ${result.title} in ${result.location}`);
+
+    // Track search analytics (would be an API call in production)
+    console.log('Search analytics:', { 
+      term: query, 
+      selectedResult: result.title,
+      timestamp: new Date().toISOString()
+    });
   };
 
   const handleOpenSearch = () => {
@@ -141,6 +201,20 @@ const SearchBar = ({ className }: { className?: string }) => {
 
   const handleClearSearch = () => {
     setQuery('');
+  };
+
+  const clearRecentSearches = () => {
+    setRecentSearches([]);
+    toast('Recent searches cleared');
+  };
+
+  const getIconForResult = (type: string) => {
+    switch(type) {
+      case 'destination': return <MapPin className="mr-2 h-4 w-4 text-accent" />;
+      case 'experience': return <Coffee className="mr-2 h-4 w-4 text-green-500" />;
+      case 'stay': return <Hotel className="mr-2 h-4 w-4 text-blue-500" />;
+      default: return <Compass className="mr-2 h-4 w-4 text-gray-500" />;
+    }
   };
 
   return (
@@ -200,7 +274,7 @@ const SearchBar = ({ className }: { className?: string }) => {
         <div className="flex items-center border-b px-3">
           <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
           <CommandInput 
-            placeholder="Search amazing destinations across India..." 
+            placeholder="Search amazing destinations across the world..." 
             value={query}
             onValueChange={setQuery}
             className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
@@ -216,12 +290,12 @@ const SearchBar = ({ className }: { className?: string }) => {
           {isLoading && (
             <div className="flex items-center justify-center py-6">
               <Loader2 className="h-6 w-6 animate-spin text-accent" />
-              <span className="ml-2">Searching India's best places...</span>
+              <span className="ml-2">Searching destinations worldwide...</span>
             </div>
           )}
           
           {!isLoading && query.length > 0 && results.length === 0 && (
-            <CommandEmpty>No places found. Try a different search term or location.</CommandEmpty>
+            <CommandEmpty>No destinations found. Try a different search term or location.</CommandEmpty>
           )}
           
           {!isLoading && results.length > 0 && (
@@ -234,7 +308,7 @@ const SearchBar = ({ className }: { className?: string }) => {
                       onSelect={() => handleSelect(result)}
                       className="flex items-center cursor-pointer"
                     >
-                      <MapPin className="mr-2 h-4 w-4 text-accent" />
+                      {getIconForResult(result.type)}
                       <div>
                         <div className="font-medium">{result.title}</div>
                         <div className="text-xs text-muted-foreground">{result.location}</div>
@@ -252,7 +326,7 @@ const SearchBar = ({ className }: { className?: string }) => {
                       onSelect={() => handleSelect(result)}
                       className="flex items-center cursor-pointer"
                     >
-                      <Calendar className="mr-2 h-4 w-4 text-green-500" />
+                      {getIconForResult(result.type)}
                       <div>
                         <div className="font-medium">{result.title}</div>
                         <div className="text-xs text-muted-foreground">{result.location}</div>
@@ -270,7 +344,7 @@ const SearchBar = ({ className }: { className?: string }) => {
                       onSelect={() => handleSelect(result)}
                       className="flex items-center cursor-pointer"
                     >
-                      <Users className="mr-2 h-4 w-4 text-blue-500" />
+                      {getIconForResult(result.type)}
                       <div>
                         <div className="font-medium">{result.title}</div>
                         <div className="text-xs text-muted-foreground">{result.location}</div>
@@ -283,39 +357,85 @@ const SearchBar = ({ className }: { className?: string }) => {
           )}
 
           {!isLoading && query.length === 0 && (
-            <div className="py-6 px-4 text-center text-sm text-muted-foreground">
-              <p>Search for destinations across India</p>
-              <div className="grid grid-cols-2 gap-2 mt-4">
-                <button 
-                  onClick={() => setQuery("Delhi")}
-                  className="p-2 text-left rounded-md hover:bg-accent/10"
-                >
-                  <p className="font-medium">Delhi</p>
-                  <p className="text-xs">National Capital Territory</p>
-                </button>
-                <button 
-                  onClick={() => setQuery("Mumbai")}
-                  className="p-2 text-left rounded-md hover:bg-accent/10"
-                >
-                  <p className="font-medium">Mumbai</p>
-                  <p className="text-xs">Maharashtra</p>
-                </button>
-                <button 
-                  onClick={() => setQuery("Kerala")}
-                  className="p-2 text-left rounded-md hover:bg-accent/10"
-                >
-                  <p className="font-medium">Kerala</p>
-                  <p className="text-xs">Backwaters</p>
-                </button>
-                <button 
-                  onClick={() => setQuery("Goa")}
-                  className="p-2 text-left rounded-md hover:bg-accent/10"
-                >
-                  <p className="font-medium">Goa</p>
-                  <p className="text-xs">Beaches</p>
-                </button>
+            <>
+              {recentSearches.length > 0 && (
+                <CommandGroup heading={
+                  <div className="flex justify-between items-center w-full pr-2">
+                    <span>Recent Searches</span>
+                    <button 
+                      onClick={clearRecentSearches}
+                      className="text-xs text-muted-foreground hover:text-foreground"
+                    >
+                      Clear all
+                    </button>
+                  </div>
+                }>
+                  {recentSearches.map((result) => (
+                    <CommandItem 
+                      key={result.id}
+                      onSelect={() => handleSelect(result)}
+                      className="flex items-center cursor-pointer"
+                    >
+                      <History className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <div className="font-medium">{result.title}</div>
+                        <div className="text-xs text-muted-foreground">{result.location}</div>
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+              
+              <CommandGroup heading="Trending Destinations">
+                {trendingSearches.map((result) => (
+                  <CommandItem 
+                    key={result.id}
+                    onSelect={() => handleSelect(result)}
+                    className="flex items-center cursor-pointer"
+                  >
+                    <TrendingUp className="mr-2 h-4 w-4 text-orange-500" />
+                    <div>
+                      <div className="font-medium">{result.title}</div>
+                      <div className="text-xs text-muted-foreground">{result.location}</div>
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+              
+              <div className="py-6 px-4 text-center text-sm text-muted-foreground">
+                <p>Search for destinations across the world</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
+                  <button 
+                    onClick={() => setQuery("Delhi")}
+                    className="p-2 text-left rounded-md hover:bg-accent/10"
+                  >
+                    <p className="font-medium">Delhi</p>
+                    <p className="text-xs">National Capital Territory</p>
+                  </button>
+                  <button 
+                    onClick={() => setQuery("Mumbai")}
+                    className="p-2 text-left rounded-md hover:bg-accent/10"
+                  >
+                    <p className="font-medium">Mumbai</p>
+                    <p className="text-xs">Maharashtra</p>
+                  </button>
+                  <button 
+                    onClick={() => setQuery("Dubai")}
+                    className="p-2 text-left rounded-md hover:bg-accent/10"
+                  >
+                    <p className="font-medium">Dubai</p>
+                    <p className="text-xs">United Arab Emirates</p>
+                  </button>
+                  <button 
+                    onClick={() => setQuery("Singapore")}
+                    className="p-2 text-left rounded-md hover:bg-accent/10"
+                  >
+                    <p className="font-medium">Singapore</p>
+                    <p className="text-xs">Southeast Asia</p>
+                  </button>
+                </div>
               </div>
-            </div>
+            </>
           )}
         </CommandList>
       </CommandDialog>

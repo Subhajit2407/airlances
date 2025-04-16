@@ -1,7 +1,7 @@
 
 import React from 'react';
 import SearchBar from './SearchBar';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Plane } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
@@ -16,11 +16,15 @@ const Hero = () => {
       
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+          <div className="flex items-center justify-center mb-4">
+            <Plane className="h-8 w-8 mr-2 text-accent animate-float" />
+            <h1 className="text-4xl md:text-5xl font-bold">Airlaces</h1>
+          </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-semibold leading-tight md:leading-tight lg:leading-tight mb-4 md:mb-6 animate-fade-up bg-gradient-to-r from-amber-600 to-rose-500 bg-clip-text text-transparent">
-            Discover India's Travel Treasures
+            Discover the World's Travel Treasures
           </h1>
           <p className="font-poppins text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 animate-fade-up delay-100">
-            Experience the untouched beauty of India's diverse landscapes, from the Himalayas in the North to Kerala's backwaters in the South.
+            Experience the beauty of diverse landscapes, from the Himalayas in the North to beach resorts of Bali and beyond.
           </p>
           
           <SearchBar className="delay-200" />
@@ -33,7 +37,7 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Enhanced floating shapes with Indian flag-inspired colors */}
+      {/* Enhanced floating shapes with brand-inspired colors */}
       <div className="absolute left-10 bottom-10 w-12 h-12 bg-orange-400/30 rounded-full animate-float"></div>
       <div className="absolute right-1/3 bottom-20 w-8 h-8 bg-green-400/30 rounded-full animate-float delay-300"></div>
       <div className="absolute right-10 top-32 w-16 h-16 bg-blue-400/20 rounded-full animate-float delay-500"></div>
