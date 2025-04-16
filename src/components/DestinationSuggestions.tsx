@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Sparkles, Castle, Bird, Palmtree, Mountain, Waves, Boat, Coffee, Tent } from 'lucide-react';
+import { Sparkles, Castle, Bird, Palmtree, Mountain, Waves, Coffee, Tent } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface DestinationCategory {
@@ -23,7 +23,7 @@ const DestinationSuggestions = () => {
     {
       name: "Backwaters",
       description: "Serene waterways of Kerala",
-      icon: <Boat className="h-6 w-6" />,
+      icon: <Coffee className="h-6 w-6" />,
       color: "bg-blue-100 text-blue-700",
       link: "/places?category=backwaters"
     },

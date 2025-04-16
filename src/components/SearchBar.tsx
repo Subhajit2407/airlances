@@ -20,7 +20,7 @@ const mockSearchResults = (query: string): SearchResult[] => {
   if (!query || query.length < 2) return [];
   
   // These would come from an API in a real implementation
-  const results = [
+  const results: SearchResult[] = [
     // Northeast destinations
     { id: '1', title: 'Majuli Island', location: 'Assam', type: 'destination', path: '/places' },
     { id: '2', title: 'Tawang Monastery', location: 'Arunachal Pradesh', type: 'destination', path: '/places' },
