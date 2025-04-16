@@ -186,13 +186,17 @@ const SearchBar = ({ className }: { className?: string }) => {
           <button 
             onClick={handleOpenSearch}
             className="bg-accent hover:bg-accent/90 text-white p-4 rounded-full flex items-center justify-center transition-all focus-ring ml-2"
+            aria-label="Search"
           >
             <Search className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      <CommandDialog open={isOpen} onOpenChange={setIsOpen} label="Search dialog" description="Search for destinations, experiences, and stays">
+      <CommandDialog 
+        open={isOpen} 
+        onOpenChange={setIsOpen}
+      >
         <div className="flex items-center border-b px-3">
           <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
           <CommandInput 
