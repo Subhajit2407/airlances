@@ -1,12 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
-import { Search, User, Menu } from 'lucide-react';
+import { Search, User, Menu, ShoppingBag } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Handle scroll effect
   useEffect(() => {
@@ -17,6 +19,10 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSearchClick = () => {
+    navigate('/places');
+  };
 
   return (
     <header 
@@ -34,7 +40,7 @@ const Header = () => {
             to="/" 
             className="font-playfair font-bold text-xl text-primary transition-all duration-200 hover:opacity-80"
           >
-            <span className="text-accent">Amazing</span>
+            <span className="text-accent">Airlace</span>
           </Link>
         </div>
 
@@ -49,13 +55,23 @@ const Header = () => {
 
         {/* Right Actions */}
         <div className="flex items-center space-x-4">
-          <button className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring">
+          <button 
+            className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring"
+            onClick={handleSearchClick}
+          >
             <Search className="w-5 h-5 text-gray-700" />
           </button>
           
-          <button className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring">
+          <Link to="/profile" className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring">
             <User className="w-5 h-5 text-gray-700" />
-          </button>
+          </Link>
+          
+          <Link to="/cart" className="p-2 rounded-full hover:bg-gray-100 transition-all focus-ring relative">
+            <ShoppingBag className="w-5 h-5 text-gray-700" />
+            <span className="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+              0
+            </span>
+          </Link>
           
           {/* Mobile menu button */}
           <button 

@@ -17,10 +17,10 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-semibold leading-tight md:leading-tight lg:leading-tight mb-4 md:mb-6 animate-fade-up bg-gradient-to-r from-amber-600 to-rose-500 bg-clip-text text-transparent">
-            Discover India's Hidden Treasures
+            Discover India's Travel Treasures
           </h1>
           <p className="font-poppins text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 animate-fade-up delay-100">
-            Experience the untouched beauty of India's diverse landscapes, from Northeast's misty mountains to South's pristine beaches.
+            Experience the untouched beauty of India's diverse landscapes, from the Himalayas in the North to Kerala's backwaters in the South.
           </p>
           
           <SearchBar className="delay-200" />
