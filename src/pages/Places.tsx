@@ -63,21 +63,26 @@ const Places = () => {
   };
 
   const filteredProperties = properties.filter(property => {
-    const matchesSearch = searchTerm 
-      ? property.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        property.location.toLowerCase().includes(searchTerm.toLowerCase())
-      : true;
+    // Enhanced search by location
+    const matchesSearch = !searchTerm ? true : (
+      property.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (searchTerm.toLowerCase() === 'goa' && property.location.toLowerCase().includes('goa'))
+    );
     
     const matchesPrice = property.price >= priceRange[0] && property.price <= priceRange[1];
     
+    // Enhanced filter matching
     const matchesFilters = selectedFilters.length === 0 || 
-      selectedFilters.some(filter => 
-        property.amenities.some(amenity => 
-          amenity.toLowerCase().includes(filter.toLowerCase())
+      selectedFilters.some(filter => {
+        const filterLower = filter.toLowerCase();
+        return property.amenities.some(amenity => 
+          amenity.toLowerCase().includes(filterLower) ||
+          amenity.toLowerCase() === filterLower
         ) ||
-        property.location.toLowerCase().includes(filter.toLowerCase()) ||
-        (property.region && filter.toLowerCase().includes(property.region.toLowerCase()))
-      );
+        property.location.toLowerCase().includes(filterLower) ||
+        (property.region && property.region.toLowerCase().includes(filterLower));
+      });
     
     return matchesSearch && matchesPrice && matchesFilters;
   });
