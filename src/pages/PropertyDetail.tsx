@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ShoppingBag, Heart, Star, MapPin, Calendar, Users, Wifi, Kitchen, Mountain, Plus, Check } from 'lucide-react';
+import { ShoppingBag, Heart, Star, MapPin, Calendar, Users, Wifi, Utensils, Mountain, Plus, Check } from 'lucide-react';
 import { properties } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/context/CartContext';
@@ -28,16 +27,13 @@ const PropertyDetail = () => {
   const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
 
   useEffect(() => {
-    // Simulate API call to get property details
     setLoading(true);
     const foundProperty = properties.find(p => p.id === id);
     
     if (foundProperty) {
       setProperty(foundProperty);
-      // Set document title
       document.title = `${foundProperty.title} - Airlace`;
     } else {
-      // Handle not found
       toast({
         title: "Property not found",
         description: "We couldn't find the property you're looking for.",
@@ -130,7 +126,6 @@ const PropertyDetail = () => {
       
       <main className="flex-grow pt-20 pb-12 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Property Title Section */}
           <div className="mb-6">
             <h1 className="text-3xl md:text-4xl font-playfair font-semibold">{property.title}</h1>
             <div className="flex flex-wrap items-center gap-2 mt-2">
@@ -146,7 +141,6 @@ const PropertyDetail = () => {
             </div>
           </div>
           
-          {/* Property Images */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 rounded-xl overflow-hidden aspect-video md:aspect-auto">
             <div className="relative h-full">
               <img 
@@ -178,7 +172,6 @@ const PropertyDetail = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Property Details */}
             <div className="lg:col-span-2">
               <div className="border-b pb-6 mb-6">
                 <h2 className="text-xl md:text-2xl font-medium mb-4">
@@ -210,7 +203,7 @@ const PropertyDetail = () => {
                   {property.amenities.map((amenity: string, i: number) => (
                     <div key={i} className="flex items-center">
                       {amenity === 'Wifi' && <Wifi className="w-5 h-5 mr-3 text-accent" />}
-                      {amenity === 'Kitchen' && <Kitchen className="w-5 h-5 mr-3 text-accent" />}
+                      {amenity === 'Kitchen' && <Utensils className="w-5 h-5 mr-3 text-accent" />}
                       {amenity === 'Mountain View' && <Mountain className="w-5 h-5 mr-3 text-accent" />}
                       {!['Wifi', 'Kitchen', 'Mountain View'].includes(amenity) && 
                         <Check className="w-5 h-5 mr-3 text-accent" />
@@ -234,7 +227,6 @@ const PropertyDetail = () => {
               </div>
             </div>
             
-            {/* Booking Card */}
             <div className="lg:col-span-1">
               <div className="sticky top-24 border rounded-xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
